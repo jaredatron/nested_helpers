@@ -4,6 +4,7 @@ class NestedHelper
     @parent = parent
     @args = args
     @block = block
+    init_options(*args)
   end
   attr_reader :parent, :called, :block, :args
   
@@ -22,7 +23,11 @@ class NestedHelper
     end
   end
   
-  # overwrite this to customize the rendering of your widget
+  # overwrite this to hangle the options passed to your helper
+  def init_options(*args)
+  end
+  
+  # overwrite this to customize the rendering of your helper
   def render
     capture_block
   end

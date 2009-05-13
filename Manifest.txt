@@ -2,6 +2,9 @@ History.txt
 Manifest.txt
 README.txt
 Rakefile
-bin/nested_helpers
+init.rb
+lib/nested_helper.rb
 lib/nested_helpers.rb
-test/test_nested_helpers.rb
+lib/nested_helper/send_recorder.rb
+lib/object.rb
+test.rb

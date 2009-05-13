@@ -1,6 +1,6 @@
 = nested_helpers
 
-* FIX (url)
+http://github.com/deadlyicon/nested_helpers
 
 == DESCRIPTION:
 

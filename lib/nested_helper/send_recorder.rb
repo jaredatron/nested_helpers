@@ -1,4 +1,4 @@
-class SendRecorder < BlankSlate
+class NestedHelper::SendRecorder < BlankSlate
   def initialize(host)
     @__host__ = host
     @__called__ = []
