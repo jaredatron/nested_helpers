@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/nested_helpers
+lib/nested_helpers.rb
+test/test_nested_helpers.rb
