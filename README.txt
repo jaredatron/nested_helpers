@@ -4,23 +4,59 @@ http://github.com/deadlyicon/nested_helpers
 
 == DESCRIPTION:
 
-FIX (describe your package)
+I't allows you to nest helpers
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+It's too useful
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+Writing this:
+
+  module PurpleBox
+    define_nested_helper :purple_box do
+
+      def init_options(options={})
+        @options = options
+        options[:class] = "purple box #{options[:class]}"
+      end
+      attr_accessor :options
+
+      def render
+        content_tag(:div, capture(self, &block), options)
+      end
+      
+      define_nested_helper :top do
+        def render
+          content_tag(:div, capture(self, &block), {:class => 'top'})
+        end
+      end
+      
+    end
+  end
+
+Lets you do this:
+
+  <%- purple_box :id => 'the_box' do |pb| -%>
+    <h1>This is your box</h1>
+    <%- pb.top do |top| -%>
+      <small>and this is it's top</small>
+    <%- end -%>
+  <%- end -%>
+
+
+== TODO:
+
+  enable to children to know what parents they are being called you from
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+Rails 2.3.2
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+sudo gem install deadlyicon-nested_helpers --source http://gems.github.com
 
 == LICENSE:
 
