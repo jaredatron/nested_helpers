@@ -45,6 +45,14 @@ Lets you do this:
     <%- end -%>
   <%- end -%>
 
+Which gives you this:
+
+  <div class="purple box " id="the_box">
+    <h1>This is your box</h1>
+    <div class="top">
+      <small>and this is it's top</small>
+    </div>
+  </div>
 
 == TODO:
 
