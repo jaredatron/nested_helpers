@@ -23,9 +23,11 @@ class NestedHelper
     end
   end
   
-  # overwrite this to hangle the options passed to your helper
+  # overwrite this to handle the options passed to your helper
   def init_options(*args)
+    @html_options = args.first || {}
   end
+  attr_accessor :html_options
   
   # overwrite this to customize the rendering of your helper
   def render
