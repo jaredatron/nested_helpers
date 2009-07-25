@@ -14,53 +14,62 @@ It's too useful
 
 Writing this:
 
-  module PurpleBox
-    define_nested_helper :purple_box do
-
-      def init_options(options={})
-        @options = options
-        options[:class] = "purple box #{options[:class]}"
-      end
-      attr_accessor :options
-
-      def render
-        content_tag(:div, capture(self, &block), options)
+  module WizrdHelper
+  
+    def wizard(html_options, &block)
+      html_options[:class] = "wizard #{html_options[:class]}".strip
+      haml_tag(div, capture(Wizard.new(self), &block), html_options)
+    end
+  
+    class Wizard < NestedHelper
+      def step(html_options, &block)
+        html_options[:class] = "step #{html_options[:class]}".strip
+        haml_tag(:div, capture(Step.new(self), &block), html_options)
       end
       
-      define_nested_helper :top do
-        def render
-          content_tag(:div, capture(self, &block), {:class => 'top'})
+      class Step < NestedHelper
+  
+        def link_to_prev(html_options, &block)
+          html_options.reverse_merge!(:href => 'javascript:void(null);', :class => 'prev_step')
+          haml_tag(:a,html_options) do
+            concat(capture(&block) || 'prev')
+          end
         end
+  
+        def link_to_next(html_options, &block)
+          html_options.reverse_merge!(:href => 'javascript:void(null);', :class => 'next_step')
+          haml_tag(:a,html_options) do
+            concat(capture(&block) || 'next')
+          end
+        end
+  
+        define_partial_proxy_helper :submit => 'wizard/submit'
+  
       end
-      
     end
   end
 
-Lets you do this:
 
-  <%- purple_box :id => 'the_box' do |pb| -%>
-    <h1>This is your box</h1>
-    <%- pb.top do |top| -%>
-      <small>and this is it's top</small>
-    <%- end -%>
-  <%- end -%>
+Lets you do this: (in haml)
 
-Which gives you this:
-
-  <div class="purple box " id="the_box">
-    <h1>This is your box</h1>
-    <div class="top">
-      <small>and this is it's top</small>
-    </div>
-  </div>
-
-== TODO:
-
-  enable to children to know what parents they are being called you from
+   - form_for @user do |f|
+     - wizard :id => "SignupWizard" do |w|
+       - w.step :class => 'credentials' do
+         = render :partial => 'static/homepage/signup_form/credentials', :locals => {:f => f}
+       - w.step :class => 'gamer_info' do |w|
+         - w.link_to_prev do
+           back
+         - w.link_to_next do
+           Go!
+         - w.submit
+       - w.step :class => 'waiting'
+         %h1
+           Creating your new Rupture account...
 
 == REQUIREMENTS:
 
 Rails 2.3.2
+Haml 2.2.2
 
 == INSTALL:
 
