@@ -15,36 +15,38 @@ It's too useful
 Writing this:
 
   module WizrdHelper
-  
+
     def wizard(html_options, &block)
       html_options[:class] = "wizard #{html_options[:class]}".strip
       haml_tag(div, capture(Wizard.new(self), &block), html_options)
     end
-  
+
     class Wizard < NestedHelper
       def step(html_options, &block)
         html_options[:class] = "step #{html_options[:class]}".strip
         haml_tag(:div, capture(Step.new(self), &block), html_options)
       end
-      
+
       class Step < NestedHelper
-  
+
         def link_to_prev(html_options, &block)
           html_options.reverse_merge!(:href => 'javascript:void(null);', :class => 'prev_step')
           haml_tag(:a,html_options) do
             concat(capture(&block) || 'prev')
           end
         end
-  
+
         def link_to_next(html_options, &block)
           html_options.reverse_merge!(:href => 'javascript:void(null);', :class => 'next_step')
           haml_tag(:a,html_options) do
             concat(capture(&block) || 'next')
           end
         end
-  
+
         define_partial_proxy_helper :submit => 'wizard/submit'
-  
+
+        define_partial_proxy_helper :submit => 'wizard/submit'
+
       end
     end
   end
@@ -65,6 +67,11 @@ Lets you do this: (in haml)
        - w.step :class => 'waiting'
          %h1
            Creating your new Rupture account...
+
+== TODO
+
+- enable define_partial_proxy_helper to take class name(s) to pass to capture to keep the nesting going
+
 
 == REQUIREMENTS:
 
