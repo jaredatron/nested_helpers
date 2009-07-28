@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: nested_helpers
 version: !ruby/object:Gem::Version 
-  version: 0.0.1
+  version: 0.0.2
 platform: ruby
 authors: []
 
@@ -9,7 +9,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-05-21 00:00:00 -07:00
+date: 2009-07-28 00:00:00 -07:00
 default_executable: 
 dependencies: []
 
@@ -23,10 +23,8 @@ extra_rdoc_files: []
 
 files: 
 - lib
-- lib/nested_helper
 - lib/nested_helper.rb
 - lib/nested_helpers.rb
-- lib/object.rb
 has_rdoc: false
 homepage: 
 licenses: []
